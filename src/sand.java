@@ -2,39 +2,51 @@
 
 public class sand {
 	static int calc(String formula) {
-		int isC = 0;
+		boolean isSymbol = false;
+		boolean isPoint = false;
 		String[] sArray = new String[formula.length()];
 		String[] fArray = formula.split("");
+		int[] priorityKey = new int[1000];
 		int cnt = 0;
+		int PKcnt = 0;
 		
 		for (int i = 0; i < formula.length(); i++) {
+			
 			try {
 				Integer.parseInt(fArray[i]);
+				if (isSymbol) {
+					cnt++;
+					isSymbol = false;
+				}
 			} catch (Exception e) {
-				
-				
+				if (isSymbol) System.out.println("記号(+-*/)が連続しているのでエラー: " + i);
 				switch (fArray[i]) {
-				case "+":
-				case "-":
+				
 				case "*":
 				case "/":
+					priorityKey[PKcnt++] = i;
+				case "+":
+				case "-":
 					cnt++;
-					isC = 1;
+					isSymbol = true;
+					if (isPoint) isPoint = false;
 					break;
 				case ".":
-					isC = 2;
+					if (isPoint) System.out.println("記号(.)が連続しているのでエラー: " + i);
+					else isPoint = true;
 					break;
+				default:
+					//  英字等はerror
 				}
 			}
 
 			if (sArray[cnt] == null) sArray[cnt] =  fArray[i];
 			else sArray[cnt] +=  fArray[i];
-			
-			if (isC == 1) {
-				cnt++;
-				isC = 0;
-			}
-			
+		}
+		
+		// デバッグ用
+		for (int i = 0; i < PKcnt; i++) {
+			System.out.println("isPI[" + i + "]: " + priorityKey[i]);
 		}
 		for (int i = 0; i <= cnt; i++) {
 			System.out.println("charArray[" + i + "]: " + sArray[i]);
@@ -43,7 +55,7 @@ public class sand {
 		return 1;
 	}
 	public static void main(String[] args) {
-		String str = "1112132/4325.2222*436-2";
+		String str = "11.12132/43.25.2222*4.36+-2";
         System.out.println(str);
         System.out.println(calc(str));
     }
