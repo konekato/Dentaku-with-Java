@@ -1,6 +1,9 @@
 
 
 public class sand {
+	int calculation(int num1, int num2, String symbol) {
+		return 1;
+	}
 	static int calc(String formula) {
 		boolean isSymbol = false;
 		boolean isPoint = false;
@@ -11,7 +14,6 @@ public class sand {
 		int PKcnt = 0;
 		
 		for (int i = 0; i < formula.length(); i++) {
-			
 			try {
 				Integer.parseInt(fArray[i]);
 				if (isSymbol) {
@@ -19,6 +21,7 @@ public class sand {
 					isSymbol = false;
 				}
 			} catch (Exception e) {
+				if (i <= 0 || i >= formula.length()-1) System.out.println("記号(+-*/.)がおかしなところにいるのでエラー: " + i);
 				if (isSymbol) System.out.println("記号(+-*/)が連続しているのでエラー: " + i);
 				switch (fArray[i]) {
 				
@@ -47,6 +50,7 @@ public class sand {
 		// デバッグ用
 		for (int i = 0; i < PKcnt; i++) {
 			System.out.println("isPI[" + i + "]: " + priorityKey[i]);
+			
 		}
 		for (int i = 0; i <= cnt; i++) {
 			System.out.println("charArray[" + i + "]: " + sArray[i]);
@@ -55,7 +59,7 @@ public class sand {
 		return 1;
 	}
 	public static void main(String[] args) {
-		String str = "11.12132/43.25.2222*4.36+-2";
+		String str = "1112132/43.25-22/22*4.36-2-";
         System.out.println(str);
         System.out.println(calc(str));
     }
