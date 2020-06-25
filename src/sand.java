@@ -1,6 +1,32 @@
 
 
 public class sand {
+	static int calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
+		int num1 = 0;
+		int num2 = 0;
+		int ans = 0;
+		try {
+			num1 = Integer.parseInt(snum1);
+			num2 = Integer.parseInt(snum2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		switch (symbol) {
+		case "*":
+			ans = num1 * num2;
+			break;
+		case "/":
+			ans = num1 / num2;
+			break;
+		case "+":
+			ans = num1 + num2;
+			break;
+		case "-":
+			ans = num1 - num2;
+			break;
+		}
+		return ans;
+	}
 	static int calc(String formula) {
 		boolean isSymbol = false;
 		boolean isPoint = false;
@@ -46,6 +72,11 @@ public class sand {
 		// デバッグ用
 		for (int i = 0; i < PKcnt; i++) {
 			System.out.println("priorityKey[" + i + "]: " + priorityKey[i]);
+			int symbolKey = priorityKey[i];
+			int before = symbolKey-1;
+			int after = symbolKey+1;
+			int a = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
+			System.out.println("a[" + i + "]: " + a);
 		}
 		for (int i = 0; i <= cnt; i++) {
 			System.out.println("sArray[" + i + "]: " + sArray[i]);
@@ -54,7 +85,7 @@ public class sand {
 		return 1;
 	}
 	public static void main(String[] args) {
-		String str = "1112132/43.25-22/22*4.36-2-";
+		String str = "4/2-22*22+436-2";
         System.out.println(str);
         System.out.println(calc(str));
     }
