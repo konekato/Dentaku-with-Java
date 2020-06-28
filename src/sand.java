@@ -69,14 +69,22 @@ public class sand {
 				}
 			}
 
-			if (sArray[cnt] == null) sArray[cnt] =  fArray[i];
-			else sArray[cnt] +=  fArray[i];
+			if (sArray[cnt] == null) sArray[cnt] = fArray[i];
+			else sArray[cnt] += fArray[i];
 		}
+		
+		// debug
+		System.out.println("First");
+		for (int j = 0; j <= cnt; j++) {
+			System.out.println("sArray[" + j + "]: " + sArray[j]);
+		}
+		System.out.println();
 		
 		for (int i = 0; i < PKcnt; i++) {
 			int symbolKey = priorityKey[i];
 			int before = symbolKey-1;
 			int after = symbolKey+1;
+			System.out.println("before, after: " + before + " " + after);
 			int ans = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
 			// デバッグ用
 			System.out.println("a[" + i + "]: " + ans);
@@ -93,7 +101,7 @@ public class sand {
 			}
 			System.out.println();
 			cnt -= 2;
-			if (i+1 < PKcnt) priorityKey[i+1] -= 2;
+			if (i+1 < PKcnt) priorityKey[i+1] -= 2 * (i+1);
 		}
 
 		for (int j = 0; j <= cnt; j++) {
@@ -104,7 +112,7 @@ public class sand {
 		return 1;
 	}
 	public static void main(String[] args) {
-		String str = "12/4/3/1";
+		String str = "12/4/3/1+5-99/3*2/6*3*4*2+55/5";
         System.out.println(str);
         System.out.println(calc(str));
     }
