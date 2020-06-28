@@ -31,7 +31,7 @@ public class sand {
 	 * @param formula
 	 * @return
 	 */
-	static int calc(String formula) {
+	static String calc(String formula) {
 		boolean isSymbol = false;
 		boolean isPoint = false;
 		String[] sArray = new String[formula.length()];
@@ -39,7 +39,9 @@ public class sand {
 		int[] priorityKey = new int[1000];
 		int cnt = 0;
 		int PKcnt = 0;
+		int SYcnt = 0;
 		
+		// 数値と記号に分ける。小数点は数値と分類。
 		for (int i = 0; i < formula.length(); i++) {
 			try {
 				Integer.parseInt(fArray[i]);
@@ -48,8 +50,14 @@ public class sand {
 					isSymbol = false;
 				}
 			} catch (Exception e) {
-				if (i <= 0 || i >= formula.length()-1) System.out.println("記号(+-*/.)がおかしなところにいるのでエラー: " + i);
-				if (isSymbol) System.out.println("記号(+-*/)が連続しているのでエラー: " + i);
+				if (i <= 0 || i >= formula.length()-1) {
+					System.out.println("記号(+-*/.)がおかしなところにいるのでエラー: " + i);
+					return "Error.";
+				}
+				if (isSymbol) {
+					System.out.println("記号(+-*/)が連続しているのでエラー: " + i);
+					return "Error.";
+				}
 				switch (fArray[i]) {
 				case "*":
 				case "/":
@@ -57,15 +65,20 @@ public class sand {
 				case "+":
 				case "-":
 					cnt++;
+					SYcnt++;
 					isSymbol = true;
 					if (isPoint) isPoint = false;
 					break;
 				case ".":
-					if (isPoint) System.out.println("記号(.)が連続しているのでエラー: " + i);
+					if (isPoint) {
+						System.out.println("記号(.)が連続しているのでエラー: " + i);
+						return "Error.";
+					}
 					else isPoint = true;
 					break;
 				default:
-					//  英字等はerror
+					System.out.println("英字等はエラー");
+					return "Error.";
 				}
 			}
 
@@ -109,10 +122,25 @@ public class sand {
 		}
 		System.out.println();
 		
-		return 1;
+		for (int i = 0; i < SYcnt - PKcnt; i++) {
+			int ans = calclateWithArithmeticOperation(sArray[0], sArray[2], sArray[1]);
+			sArray[0] = Integer.toString(ans);
+			for (int j = 1; j <= cnt-2; j++) {
+				sArray[j] = sArray[j+2];
+			}
+			sArray[cnt-1] = null;
+			sArray[cnt] = null;
+			for (int j = 0; j <= cnt; j++) {
+				System.out.println("sArray[" + j + "]: " + sArray[j]);
+			}
+			System.out.println();
+			cnt -= 2;
+		}
+		
+		return sArray[0];
 	}
 	public static void main(String[] args) {
-		String str = "12/4/3/1+5-99/3*2/6*3*4*2+55/5";
+		String str = "12/4/3/1+5-99/3*2/6*3*4*2+55/5+100*2000009";
         System.out.println(str);
         System.out.println(calc(str));
     }
