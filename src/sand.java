@@ -12,10 +12,10 @@ public class sand {
 			System.out.println(e);
 		}
 		switch (symbol) {
-		case "*":
+		case "×":
 			ans = num1 * num2;
 			break;
-		case "/":
+		case "÷":
 			ans = num1 / num2;
 			break;
 		case "+":
@@ -59,8 +59,8 @@ public class sand {
 					return "Error.";
 				}
 				switch (fArray[i]) {
-				case "*":
-				case "/":
+				case "×":
+				case "÷":
 					priorityKey[PKcnt++] = cnt + 1;
 				case "+":
 				case "-":

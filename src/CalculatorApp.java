@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,19 +12,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CalculatorApp extends Application {
+	
+	TextField tfQ, tfA;
 
 	@Override
 	public void start(Stage primaryStage) {
-		// Create the Textfield
-		TextField tf = new TextField();
-        tf.setAlignment(Pos.BASELINE_RIGHT);
-        tf.setEditable(false);
+		// Create the Textfields
+		tfQ = new TextField();
+        tfQ.setEditable(false);
         
-     // Create Number Buttons
+        tfA = new TextField();
+        tfA.setEditable(false);
+        
+        // Create the label
+        Label lb = new Label("=");
+        
+        // Create the Buttons
         Button[] btnN = new Button[10];
-        for (int i = 0; i < btnN.length; i++) {
-            btnN[i] = new Button(Integer.toString(i));
-        }
+        for (int i = 0; i < btnN.length; i++) btnN[i] = new Button(Integer.toString(i));
         Button btnP = new Button(".");
         Button btnAdd = new Button("+");
         Button btnSub = new Button("-");
@@ -33,9 +39,22 @@ public class CalculatorApp extends Application {
 
         Button btnCE = new Button("CE");
         Button btnAC = new Button("AC");
+        
+        //　Set Buttons Actions
+        for (int i = 0; i < btnN.length; i++) btnN[i].setOnAction(e -> btnN_Click(e));
+        btnP.setOnAction(e -> btnN_Click(e));
+        btnAdd.setOnAction(e -> btnN_Click(e));
+        btnSub.setOnAction(e -> btnN_Click(e));
+        btnMul.setOnAction(e -> btnN_Click(e));
+        btnDiv.setOnAction(e -> btnN_Click(e));
+        
+        btnCE.setOnAction(e -> btnCE_Click());
+        btnAC.setOnAction(e -> btnAC_Click());
+        
+        btnEql.setOnAction(e -> showAns());
 
         // Create the Layout
-        HBox hbox1 = new HBox(5, tf);
+        HBox hbox1 = new HBox(5, tfQ, lb, tfA);
         hbox1.setAlignment(Pos.CENTER);
         HBox hbox2 = new HBox(5, btnCE, btnAC);
         hbox2.setAlignment(Pos.CENTER);
@@ -57,6 +76,28 @@ public class CalculatorApp extends Application {
 		primaryStage.setTitle("Calculator Application");
 		primaryStage.show();
 	}
+	
+	public void btnN_Click(ActionEvent e) {
+        Button b = (Button) e.getSource();
+        tfQ.appendText(b.getText());
+    }
+
+    public void btnCE_Click() {
+        int len = tfQ.getLength();
+        if (len > 0) {
+            tfQ.deleteText(len - 1, len);
+        }
+    }
+
+    public void btnAC_Click() {
+        tfQ.clear();
+        tfA.clear();
+    }
+    
+    public void showAns() {
+    	String ans = sand.calc(tfQ.getText());
+    	tfA.setText(ans);
+    }
 	
 	public static void main(String[] args) {
 		// アプリケーションを起動する
