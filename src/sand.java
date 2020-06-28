@@ -27,6 +27,10 @@ public class sand {
 		}
 		return ans;
 	}
+	/**
+	 * @param formula
+	 * @return
+	 */
 	static int calc(String formula) {
 		boolean isSymbol = false;
 		boolean isPoint = false;
@@ -69,23 +73,38 @@ public class sand {
 			else sArray[cnt] +=  fArray[i];
 		}
 		
-		// デバッグ用
 		for (int i = 0; i < PKcnt; i++) {
-			System.out.println("priorityKey[" + i + "]: " + priorityKey[i]);
 			int symbolKey = priorityKey[i];
 			int before = symbolKey-1;
 			int after = symbolKey+1;
-			int a = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
-			System.out.println("a[" + i + "]: " + a);
+			int ans = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
+			// デバッグ用
+			System.out.println("a[" + i + "]: " + ans);
+			
+			sArray[before] = Integer.toString(ans);
+			
+			for (int j = symbolKey; j <= cnt-2; j++) {
+				sArray[j] = sArray[j+2];
+			}
+			sArray[cnt-1] = null;
+			sArray[cnt] = null;
+			for (int j = 0; j <= cnt; j++) {
+				System.out.println("sArray[" + j + "]: " + sArray[j]);
+			}
+			System.out.println();
+			cnt -= 2;
+			if (i+1 < PKcnt) priorityKey[i+1] -= 2;
 		}
-		for (int i = 0; i <= cnt; i++) {
-			System.out.println("sArray[" + i + "]: " + sArray[i]);
+
+		for (int j = 0; j <= cnt; j++) {
+			System.out.println("sArray[" + j + "]: " + sArray[j]);
 		}
+		System.out.println();
 		
 		return 1;
 	}
 	public static void main(String[] args) {
-		String str = "4/2-22*22+436-2";
+		String str = "12/4/3/1";
         System.out.println(str);
         System.out.println(calc(str));
     }
