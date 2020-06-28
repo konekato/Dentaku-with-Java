@@ -1,13 +1,13 @@
 
 
 public class sand {
-	static int calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
-		int num1 = 0;
-		int num2 = 0;
-		int ans = 0;
+	static long calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
+		long num1 = 0;
+		long num2 = 0;
+		long ans = 0;
 		try {
-			num1 = Integer.parseInt(snum1);
-			num2 = Integer.parseInt(snum2);
+			num1 = Long.parseLong(snum1);
+			num2 = Long.parseLong(snum2);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -98,11 +98,11 @@ public class sand {
 			int before = symbolKey-1;
 			int after = symbolKey+1;
 			System.out.println("before, after: " + before + " " + after);
-			int ans = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
+			long ans = calclateWithArithmeticOperation(sArray[before],sArray[after], sArray[symbolKey]);
 			// デバッグ用
 			System.out.println("a[" + i + "]: " + ans);
 			
-			sArray[before] = Integer.toString(ans);
+			sArray[before] = Long.toString(ans);
 			
 			for (int j = symbolKey; j <= cnt-2; j++) {
 				sArray[j] = sArray[j+2];
@@ -123,8 +123,8 @@ public class sand {
 		System.out.println();
 		
 		for (int i = 0; i < SYcnt - PKcnt; i++) {
-			int ans = calclateWithArithmeticOperation(sArray[0], sArray[2], sArray[1]);
-			sArray[0] = Integer.toString(ans);
+			long ans = calclateWithArithmeticOperation(sArray[0], sArray[2], sArray[1]);
+			sArray[0] = Long.toString(ans);
 			for (int j = 1; j <= cnt-2; j++) {
 				sArray[j] = sArray[j+2];
 			}
@@ -140,7 +140,7 @@ public class sand {
 		return sArray[0];
 	}
 	public static void main(String[] args) {
-		String str = "12/4/3/1+5-99/3*2/6*3*4*2+55/5+100*2000009";
+		String str = "12/4/3/1+5-99/3*2/6*3*4*2+55/5+100*200002312319*99999999";
         System.out.println(str);
         System.out.println(calc(str));
     }
