@@ -41,6 +41,11 @@ public class sand {
 		int PKcnt = 0;
 		int SYcnt = 0;
 		
+		if (formula.length() == 0) {
+			System.out.println("数値が入力されていません。");
+			return "Error.";
+		}
+		
 		// 数値と記号に分ける。小数点は数値と分類。
 		for (int i = 0; i < formula.length(); i++) {
 			try {
