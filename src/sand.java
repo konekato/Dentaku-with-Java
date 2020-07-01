@@ -32,6 +32,8 @@ public class sand {
 	 * @return
 	 */
 	static String calc(String formula) {
+		final String ERROR_MESSAGE = "Error.";
+		
 		boolean isSymbol = false;
 		boolean isPoint = false;
 		String[] sArray = new String[formula.length()];
@@ -43,7 +45,7 @@ public class sand {
 		
 		if (formula.length() == 0) {
 			System.out.println("数値が入力されていません。");
-			return "Error.";
+			return ERROR_MESSAGE;
 		}
 		
 		// 数値と記号に分ける。小数点は数値と分類。
@@ -57,11 +59,11 @@ public class sand {
 			} catch (Exception e) {
 				if (i <= 0 || i >= formula.length()-1) {
 					System.out.println("記号(+-*/.)がおかしなところにいるのでエラー: " + i);
-					return "Error.";
+					return ERROR_MESSAGE;
 				}
 				if (isSymbol) {
 					System.out.println("記号(+-*/)が連続しているのでエラー: " + i);
-					return "Error.";
+					return ERROR_MESSAGE;
 				}
 				switch (fArray[i]) {
 				case "×":
@@ -77,13 +79,13 @@ public class sand {
 				case ".":
 					if (isPoint) {
 						System.out.println("記号(.)が連続しているのでエラー: " + i);
-						return "Error.";
+						return ERROR_MESSAGE;
 					}
 					else isPoint = true;
 					break;
 				default:
 					System.out.println("英字等はエラー: " + i);
-					return "Error.";
+					return ERROR_MESSAGE;
 				}
 			}
 
@@ -145,7 +147,7 @@ public class sand {
 		return sArray[0];
 	}
 	public static void main(String[] args) {
-		String str = "5.62+1.38";
+		String str = "5.62 +1.38";
         System.out.println(str);
         System.out.println(calc(str));
     }
