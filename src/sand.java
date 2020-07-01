@@ -77,7 +77,7 @@ public class sand {
 					else isPoint = true;
 					break;
 				default:
-					System.out.println("英字等はエラー");
+					System.out.println("英字等はエラー: " + i);
 					return "Error.";
 				}
 			}
