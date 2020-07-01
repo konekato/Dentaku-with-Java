@@ -42,6 +42,7 @@ public class CalculatorApp extends Application {
         
         //　Set Buttons Actions
         for (int i = 0; i < btnN.length; i++) btnN[i].setOnAction(e -> btnN_Click(e));
+        btn00.setOnAction(e -> btnN_Click(e));
         btnP.setOnAction(e -> btnN_Click(e));
         btnAdd.setOnAction(e -> btnN_Click(e));
         btnSub.setOnAction(e -> btnN_Click(e));
