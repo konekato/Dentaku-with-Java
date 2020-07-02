@@ -1,32 +1,44 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Calculate {
-	static double calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
-		double num1 = 0;
-		double num2 = 0;
-		double ans = 0;
+	final static String ERROR_MESSAGE = "Error.";
+	
+	static String calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
+		BigDecimal num1 = new BigDecimal(0);
+		BigDecimal num2 = new BigDecimal(0);
+		BigDecimal ans = new BigDecimal(0);
 		try {
-			num1 = Double.parseDouble(snum1);
-			num2 = Double.parseDouble(snum2);
+			num1 = new BigDecimal(snum1);
+			num2 = new BigDecimal(snum2);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		switch (symbol) {
 		case "×":
-			ans = num1 * num2;
+			ans = num1.multiply(num2);;
 			break;
 		case "÷":
-			ans = num1 / num2;
+			try {
+				ans = num1.divide(num2);
+			} catch (ArithmeticException e) {
+				try {
+					ans = num1.divide(num2, 10, BigDecimal.ROUND_HALF_UP);
+				} catch (ArithmeticException e2) {
+					System.out.println(e2);
+					return null;
+				}
+			}
 			break;
 		case "+":
-			ans = num1 + num2;
+			ans = num1.add(num2);
 			break;
 		case "-":
-			ans = num1 - num2;
+			ans = num1.subtract(num2);;
 			break;
 		}
-		return ans;
+		return ans.toString();
 	}
 	
 	// 数値と記号に分ける。小数点は数値と分類。
@@ -39,7 +51,7 @@ public class Calculate {
 		boolean isPoint = false;
 		
 		for (int i = 0; i < fArray.length; i++) {
-			System.out.println("cnt: " + cnt);
+//			System.out.println("cnt: " + cnt);
 			try {
 				Integer.parseInt(fArray[i]);
 				if (isSymbol) {
@@ -97,9 +109,9 @@ public class Calculate {
 	}
 	
 	static String[] calculate(String[] sArray, int n) {
-		double ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
-		
-		sArray[n-1] = Double.toString(ans);
+		String ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
+		if (ans == null) return null;
+		sArray[n-1] = ans;
 		
 		for (int j = n; j < sArray.length-2; j++) {
 			sArray[j] = sArray[j+2];
@@ -118,7 +130,6 @@ public class Calculate {
 	 * @return
 	 */
 	static String calc(String formula) {
-		final String ERROR_MESSAGE = "Error.";
 		
 		String[] sArray = new String[0];
 		String[] fArray = formula.split("");
@@ -129,46 +140,45 @@ public class Calculate {
 		}
 		
 		sArray = separate(fArray);
-		System.out.println(sArray.length);
-		if (sArray.length == 1) return sArray[0];
+//		System.out.println(sArray.length);
+		if (sArray == null) return ERROR_MESSAGE;
+		else if (sArray.length == 1) return sArray[0];
 		
 		for (int i = 0; i < sArray.length; i++) {
 			if (isMultiplicationOrDivisionSymbol(sArray[i])) {
-				System.out.println("before, after: " + (i-1) + " " + (i+1));
+//				System.out.println("before, after: " + (i-1) + " " + (i+1));
 				sArray = calculate(sArray, i);
+				if (sArray == null) return ERROR_MESSAGE;
 				
-				for (int j = 0; j < sArray.length; j++) {
-					System.out.println("sArray[" + j + "]: " + sArray[j]);
-				}
-				System.out.println();
+//				for (int j = 0; j < sArray.length; j++) {
+//					System.out.println("sArray[" + j + "]: " + sArray[j]);
+//				}
+//				System.out.println();
 				
 				i = 0;
 			}
 		}
 
-		System.out.println("--------------------");
-		for (int j = 0; j < sArray.length; j++) {
-			System.out.println("sArray[" + j + "]: " + sArray[j]);
-		}
-		System.out.println("--------------------");
+//		System.out.println("--------------------");
+//		for (int j = 0; j < sArray.length; j++) {
+//			System.out.println("sArray[" + j + "]: " + sArray[j]);
+//		}
+//		System.out.println("--------------------");
 		
 		while (sArray.length > 1) {
 			sArray = calculate(sArray, 1);
+			if (sArray == null) return ERROR_MESSAGE;
 			
-			for (int j = 0; j < sArray.length; j++) {
-				System.out.println("sArray[" + j + "]: " + sArray[j]);
-			}
-			System.out.println();
-		}
-		
-		if (sArray[0].endsWith(".0")) {
-			sArray[0] = sArray[0].substring(0, sArray[0].length() - 2);
+//			for (int j = 0; j < sArray.length; j++) {
+//				System.out.println("sArray[" + j + "]: " + sArray[j]);
+//			}
+//			System.out.println();
 		}
 		
 		return sArray[0];
 	}
 	public static void main(String[] args) {
-		String str = "3256.3+32×54";
+		String str = "1+2";
         System.out.println(str);
         System.out.println(calc(str));
     }
