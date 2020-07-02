@@ -96,6 +96,22 @@ public class Calculate {
 		else return false;
 	}
 	
+	static String[] calculate(String[] sArray, int n) {
+		double ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
+		
+		sArray[n-1] = Double.toString(ans);
+		
+		for (int j = n; j < sArray.length-2; j++) {
+			sArray[j] = sArray[j+2];
+		}
+		ArrayList<String> a = new ArrayList<String>(Arrays.asList(sArray));
+		a.remove(sArray.length-1);
+		a.remove(sArray.length-2);
+		sArray = a.toArray(new String[0]);
+		
+		return sArray;
+	}
+	
 	
 	/**
 	 * @param formula
@@ -116,29 +132,10 @@ public class Calculate {
 		System.out.println(sArray.length);
 		if (sArray.length == 1) return sArray[0];
 		
-		
-		// debug
-		System.out.println("First");
-		for (int j = 0; j < sArray.length; j++) {
-			System.out.println("sArray[" + j + "]: " + sArray[j]);
-		}
-		
 		for (int i = 0; i < sArray.length; i++) {
 			if (isMultiplicationOrDivisionSymbol(sArray[i])) {
 				System.out.println("before, after: " + (i-1) + " " + (i+1));
-				double ans = calclateWithArithmeticOperation(sArray[i-1],sArray[i+1], sArray[i]);
-				// デバッグ用
-				System.out.println("a[" + i + "]: " + ans);
-				
-				sArray[i-1] = Double.toString(ans);
-				
-				for (int j = i; j < sArray.length-2; j++) {
-					sArray[j] = sArray[j+2];
-				}
-				ArrayList<String> a = new ArrayList<String>(Arrays.asList(sArray));
-				a.remove(sArray.length-1);
-				a.remove(sArray.length-2);
-				sArray = a.toArray(new String[0]);
+				sArray = calculate(sArray, i);
 				
 				for (int j = 0; j < sArray.length; j++) {
 					System.out.println("sArray[" + j + "]: " + sArray[j]);
@@ -156,16 +153,7 @@ public class Calculate {
 		System.out.println("--------------------");
 		
 		while (sArray.length > 1) {
-			double ans = calclateWithArithmeticOperation(sArray[0], sArray[2], sArray[1]);
-			sArray[0] = Double.toString(ans);
-			for (int j = 1; j < sArray.length-2; j++) {
-				sArray[j] = sArray[j+2];
-			}
-			
-			ArrayList<String> a = new ArrayList<String>(Arrays.asList(sArray));
-			a.remove(sArray.length-1);
-			a.remove(sArray.length-2);
-			sArray = a.toArray(new String[0]);
+			sArray = calculate(sArray, 1);
 			
 			for (int j = 0; j < sArray.length; j++) {
 				System.out.println("sArray[" + j + "]: " + sArray[j]);
