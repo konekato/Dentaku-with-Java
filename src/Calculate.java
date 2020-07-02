@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Calculate {
 	final static String ERROR_MESSAGE = "Error.";
 	
-	static String calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
+	private static String calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
 		BigDecimal num1 = new BigDecimal(0);
 		BigDecimal num2 = new BigDecimal(0);
 		BigDecimal ans = new BigDecimal(0);
@@ -42,7 +42,7 @@ public class Calculate {
 	}
 	
 	// 数値と記号に分ける。小数点は数値と分類。
-	static String[] separate(String[] fArray) {
+	private static String[] separate(String[] fArray) {
 		String[] sArray = new String[0];
 		
 		int cnt = 0;
@@ -103,12 +103,12 @@ public class Calculate {
 		return sArray;
 	}
 	
-	static boolean isMultiplicationOrDivisionSymbol(String symbol) {
+	private static boolean isMultiplicationOrDivisionSymbol(String symbol) {
 		if (symbol.equals("×") || symbol.equals("÷")) return true;
 		else return false;
 	}
 	
-	static String[] calculate(String[] sArray, int n) {
+	private static String[] calculate(String[] sArray, int n) {
 		String ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
 		if (ans == null) return null;
 		sArray[n-1] = ans;
