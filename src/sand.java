@@ -91,7 +91,7 @@ public class sand {
 		return sArray;
 	}
 	
-	static boolean IsMultiplicationOrDivisionSymbol(String symbol) {
+	static boolean isMultiplicationOrDivisionSymbol(String symbol) {
 		if (symbol.equals("×") || symbol.equals("÷")) return true;
 		else return false;
 	}
@@ -125,7 +125,7 @@ public class sand {
 		}
 		
 		for (int i = 0; i < sArray.length; i++) {
-			if (IsMultiplicationOrDivisionSymbol(sArray[i])) {
+			if (isMultiplicationOrDivisionSymbol(sArray[i])) {
 				System.out.println("before, after: " + (i-1) + " " + (i+1));
 				double ans = calclateWithArithmeticOperation(sArray[i-1],sArray[i+1], sArray[i]);
 				// デバッグ用
