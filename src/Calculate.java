@@ -54,7 +54,6 @@ public class Calculate {
 		boolean isPoint = false;
 		
 		for (int i = 0; i < fArray.length; i++) {
-//			System.out.println("cnt: " + cnt);
 			try {
 				Integer.parseInt(fArray[i]);
 				if (isSymbol) {
@@ -147,39 +146,21 @@ public class Calculate {
 		}
 		
 		sArray = separate(fArray);
-//		System.out.println(sArray.length);
 		if (sArray == null) return ERROR_MESSAGE;
 		else if (sArray.length == 1) return sArray[0];
 		
 		for (int i = 0; i < sArray.length; i++) {
 			if (isMultiplicationOrDivisionSymbol(sArray[i])) {
-//				System.out.println("before, after: " + (i-1) + " " + (i+1));
 				sArray = calculate(sArray, i);
 				if (sArray == null) return ERROR_MESSAGE;
-				
-//				for (int j = 0; j < sArray.length; j++) {
-//					System.out.println("sArray[" + j + "]: " + sArray[j]);
-//				}
-//				System.out.println();
 				
 				i = 0;
 			}
 		}
-
-//		System.out.println("--------------------");
-//		for (int j = 0; j < sArray.length; j++) {
-//			System.out.println("sArray[" + j + "]: " + sArray[j]);
-//		}
-//		System.out.println("--------------------");
 		
 		while (sArray.length > 1) {
 			sArray = calculate(sArray, 1);
 			if (sArray == null) return ERROR_MESSAGE;
-			
-//			for (int j = 0; j < sArray.length; j++) {
-//				System.out.println("sArray[" + j + "]: " + sArray[j]);
-//			}
-//			System.out.println();
 		}
 		
 		return sArray[0];
