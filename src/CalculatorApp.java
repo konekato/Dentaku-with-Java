@@ -96,7 +96,7 @@ public class CalculatorApp extends Application {
     }
     
     public void showAns() {
-    	String ans = sand.calc(tfQ.getText());
+    	String ans = Calculate.calc(tfQ.getText());
     	tfA.setText(ans);
     }
 	
