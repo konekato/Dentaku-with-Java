@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Calculate {
 	final static String ERROR_MESSAGE = "Error.";
 	
+	// 四則演算メソッド
 	private static String calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
 		BigDecimal num1 = new BigDecimal(0);
 		BigDecimal num2 = new BigDecimal(0);
@@ -24,8 +25,10 @@ public class Calculate {
 				ans = num1.divide(num2);
 			} catch (ArithmeticException e) {
 				try {
+					// 無限小数の場合は小数点第十一位で四捨五入
 					ans = num1.divide(num2, 10, BigDecimal.ROUND_HALF_UP);
 				} catch (ArithmeticException e2) {
+					// 分母 0 などのエラーハンドリング
 					System.out.println(e2);
 					return null;
 				}
@@ -41,7 +44,7 @@ public class Calculate {
 		return ans.toString();
 	}
 	
-	// 数値と記号に分ける。小数点は数値と分類。
+	// 数値と記号に分けるメソッド。小数点は数値と分類。
 	private static String[] separate(String[] fArray) {
 		String[] sArray = new String[0];
 		
@@ -90,8 +93,10 @@ public class Calculate {
 			}
 			
 			try {
+				// 要素が存在すれば結合
 				sArray[cnt] += fArray[i];
 			} catch (ArrayIndexOutOfBoundsException e) {
+				// 要素が存在しなければ作成
 				ArrayList<String> a = new ArrayList<String>(Arrays.asList(sArray));
 				a.add(fArray[i]);
 				sArray = a.toArray(new String[0]);
@@ -103,11 +108,13 @@ public class Calculate {
 		return sArray;
 	}
 	
+	// 乗除の演算子を判別するメソッド
 	private static boolean isMultiplicationOrDivisionSymbol(String symbol) {
 		if (symbol.equals("×") || symbol.equals("÷")) return true;
 		else return false;
 	}
 	
+	// 指定の配列の要素同士を計算して返すメソッド
 	private static String[] calculate(String[] sArray, int n) {
 		String ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
 		if (ans == null) return null;
