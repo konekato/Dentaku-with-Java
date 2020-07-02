@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class sand {
+public class Calculate {
 	static double calclateWithArithmeticOperation(String snum1, String snum2, String symbol) {
 		double num1 = 0;
 		double num2 = 0;
@@ -114,8 +114,7 @@ public class sand {
 		
 		sArray = separate(fArray);
 		System.out.println(sArray.length);
-		if (sArray == null) return ERROR_MESSAGE;
-		else if (sArray.length == 1) return sArray[0];
+		if (sArray.length == 1) return sArray[0];
 		
 		
 		// debug
