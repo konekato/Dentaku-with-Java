@@ -79,11 +79,13 @@ public class CalculatorApp extends Application {
 	}
 	
 	public void btnN_Click(ActionEvent e) {
+		tfA.clear();
         Button b = (Button) e.getSource();
         tfQ.appendText(b.getText());
     }
 
     public void btnCE_Click() {
+    	tfA.clear();
         int len = tfQ.getLength();
         if (len > 0) {
             tfQ.deleteText(len - 1, len);
