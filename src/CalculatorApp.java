@@ -97,7 +97,7 @@ public class CalculatorApp extends Application {
     }
     
     public void showAns() {
-        String ans = Calculate.calc(tfQ.getText());
+        String ans = Calculate.calculate(tfQ.getText());
         tfA.setText(ans);
     }
 

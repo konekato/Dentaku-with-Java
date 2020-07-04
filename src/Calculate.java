@@ -114,8 +114,8 @@ public class Calculate {
 	}
 	
 	// 指定の配列の要素同士を計算して返すメソッド
-	private static String[] calculate(String[] sArray, int n) {
-		String ans = calclateWithArithmeticOperation(sArray[n-1],sArray[n+1], sArray[n]);
+	private static String[] calculateArrayElements(String[] sArray, int n) {
+		String ans = calclateWithArithmeticOperation(sArray[n-1], sArray[n+1], sArray[n]);
 		if (ans == null) return null;
 		sArray[n-1] = ans;
 		
@@ -135,7 +135,7 @@ public class Calculate {
 	 * @param formula
 	 * @return
 	 */
-	static String calc(String formula) {
+	static String calculate(String formula) {
 		
 		String[] sArray = new String[0];
 		String[] fArray = formula.split("");
@@ -151,7 +151,7 @@ public class Calculate {
 		
 		for (int i = 0; i < sArray.length; i++) {
 			if (isMultiplicationOrDivisionSymbol(sArray[i])) {
-				sArray = calculate(sArray, i);
+				sArray = calculateArrayElements(sArray, i);
 				if (sArray == null) return ERROR_MESSAGE;
 				
 				i = 0;
@@ -159,7 +159,7 @@ public class Calculate {
 		}
 		
 		while (sArray.length > 1) {
-			sArray = calculate(sArray, 1);
+			sArray = calculateArrayElements(sArray, 1);
 			if (sArray == null) return ERROR_MESSAGE;
 		}
 		
@@ -168,6 +168,6 @@ public class Calculate {
 	public static void main(String[] args) {
 		String str = "1+2";
         System.out.println(str);
-        System.out.println(calc(str));
+        System.out.println(calculate(str));
     }
 }
