@@ -16,8 +16,8 @@ public class CalculatorApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		// Create the Textfields
-		tfQ = new TextField();
+        // Create the Textfields
+        tfQ = new TextField();
         tfQ.setEditable(false);
         
         tfA = new TextField();
@@ -73,19 +73,18 @@ public class CalculatorApp extends Application {
         // Set the stage
         Scene scene = new Scene(vbox);
         primaryStage.setScene(scene);
-		
-		primaryStage.setTitle("Calculator Application");
-		primaryStage.show();
-	}
-	
-	public void btnN_Click(ActionEvent e) {
-		tfA.clear();
+        primaryStage.setTitle("Calculator Application");
+        primaryStage.show();
+    }
+
+    public void btnN_Click(ActionEvent e) {
+        tfA.clear();
         Button b = (Button) e.getSource();
         tfQ.appendText(b.getText());
     }
 
     public void btnCE_Click() {
-    	tfA.clear();
+        tfA.clear();
         int len = tfQ.getLength();
         if (len > 0) {
             tfQ.deleteText(len - 1, len);
@@ -98,13 +97,13 @@ public class CalculatorApp extends Application {
     }
     
     public void showAns() {
-    	String ans = Calculate.calc(tfQ.getText());
-    	tfA.setText(ans);
+        String ans = Calculate.calc(tfQ.getText());
+        tfA.setText(ans);
     }
-	
-	public static void main(String[] args) {
-		// アプリケーションを起動する
-		Application.launch(args);
-		System.out.println("完了--CalculatorApp");
-	}
+
+    public static void main(String[] args) {
+        // アプリケーションを起動する
+        Application.launch(args);
+        System.out.println("完了--CalculatorApp");
+    }
 }
