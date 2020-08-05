@@ -14,3 +14,7 @@ You use Java SE 8.
 or
 
 2. Import this repository to Eclipse.
+
+---
+## LICENSE
+[MIT License](https://github.com/konekato/Dentaku-with-Java/blob/master/LICENSE)
